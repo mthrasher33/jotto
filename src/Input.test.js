@@ -1,7 +1,15 @@
 import React from 'react';
 import { shallow, ShallowWrapper } from 'enzyme';
 import { findByTestAttr } from '../test/test.utils';
+
 import Input from './Input';
+const mockSetCurrentGuess = jest.fn();
+
+// mock entire module for destructuring
+jest.mock('react', () => ({
+  ...jest.requireActual('react'),
+  useState: (initialState) => [initialState, mockSetCurrentGuess],
+}));
 
 /**
  * Setup function for app component
@@ -19,9 +27,6 @@ test('renders without crashing', () => {
 
 describe('state controlled input field', () => {
   test('state updates with value of input box upon change', () => {
-    const mockSetCurrentGuess = jest.fn();
-    React.useState = jest.fn(() => ['', mockSetCurrentGuess]);
-
     const wrapper = setup();
     const inputBox = findByTestAttr(wrapper, 'input-box');
 

@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const Input = ({ secretWord }) => {
-  const [currentGuess, setCurrentGuess] = React.useState(''); // this way lets us mock useState
+  const [currentGuess, setCurrentGuess] = useState(''); // this way lets us mock useState
   return (
     <div data-test='component-input'>
       <form className='form-inline'>
