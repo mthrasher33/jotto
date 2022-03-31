@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 
-const Input = ({ secretWord }) => {
+const Input = ({ success, secretWord }) => {
   const [currentGuess, setCurrentGuess] = useState(''); // this way lets us mock useState
+
+  if (success) {
+    return <div data-test='component-input'></div>;
+  }
   return (
     <div data-test='component-input'>
       <form className='form-inline'>
