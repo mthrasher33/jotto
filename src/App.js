@@ -5,6 +5,8 @@ import './App.css';
 import Congrats from './Congrats';
 import GuessedWords from './GuessedWords';
 import Input from './Input';
+import LanguagePicker from './LanguagePicker';
+import languageContext from './contexts/languageContext';
 
 function App() {
   // TODO: get props from shared state
