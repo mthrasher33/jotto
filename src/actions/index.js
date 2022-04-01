@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const getSecretWord = () => {
-  // TODO: actually integrate with redux/context
-  return axios.get('http://localhost:3030').then((response) => response.data);
+export const getSecretWord = async (setSecretWord) => {
+  const { data } = await axios.get('http://localhost:3030');
+  setSecretWord(data);
 };

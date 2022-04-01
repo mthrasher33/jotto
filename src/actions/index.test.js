@@ -8,7 +8,7 @@ describe('getSecretWord', () => {
   afterEach(() => {
     moxios.uninstall();
   });
-  test('secretWord is returned', () => {
+  test('secretWord is returned', async () => {
     moxios.wait(() => {
       const request = moxios.requests.mostRecent();
       request.respondWith({
@@ -17,9 +17,10 @@ describe('getSecretWord', () => {
       });
     }); // need this so test doesn't exist before async call completes
 
+    const mockSetSecretWord = jest.fn();
+
     // update to test app in Redux / context sections
-    return getSecretWord().then((secretWord) => {
-      expect(secretWord).toBe('party');
-    });
+    await getSecretWord(mockSetSecretWord);
+    expect(mockSetSecretWord).toHaveBeenCalledWith('party');
   });
 });

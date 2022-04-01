@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getSecretWord } from './actions';
 import './App.css';
 
@@ -9,9 +9,9 @@ import LanguagePicker from './LanguagePicker';
 import languageContext from './contexts/languageContext';
 
 function App() {
-  // TODO: get props from shared state
+  const [secretWord, setSecretWord] = useState();
+
   const success = false;
-  const secretWord = 'party';
   const guessedWords = [];
 
   useEffect(() => {
