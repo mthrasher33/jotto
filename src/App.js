@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getSecretWord } from './actions';
 import './App.css';
 
@@ -8,11 +8,30 @@ import Input from './Input';
 import LanguagePicker from './LanguagePicker';
 import languageContext from './contexts/languageContext';
 
+/**
+ * @function reducer to update state, automatically called by dispatch
+ * @param state {object} - previous state
+ * @param action {object} - 'type and 'payload' props
+ * @returns {object} - new state
+ */
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'setSecretWord':
+      return { ...state, secretWord: action.payload };
+    default:
+      throw new Error(`Invalid action type: ${action.type}`);
+  }
+};
 function App() {
-  const [secretWord, setSecretWord] = useState();
+  // const [secretWord, setSecretWord] = useState();
+  const [state, dispatch] = React.useReducer(reducer, { secretWord: '' });
 
   const success = false;
   const guessedWords = [];
+
+  const setSecretWord = (secretWord) => {
+    dispatch({ type: 'setSecretWord', payload: secretWord });
+  };
 
   useEffect(() => {
     getSecretWord();
@@ -22,7 +41,7 @@ function App() {
     <div data-test='component-app' className='container'>
       <h1>Jotto</h1>
       <Congrats success={success} />
-      <Input success={success} secretWord={secretWord} />
+      <Input success={success} secretWord={state.secretWord} />
       <GuessedWords guessedWords={guessedWords} />
     </div>
   );
