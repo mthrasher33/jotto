@@ -23,14 +23,20 @@ const reducer = (state, action) => {
   }
 };
 function App() {
-  // const [secretWord, setSecretWord] = useState();
-  const [state, dispatch] = React.useReducer(reducer, { secretWord: '' });
+  const [state, dispatch] = React.useReducer(reducer, {
+    secretWord: null,
+    language: 'en',
+  });
 
   const success = false;
   const guessedWords = [];
 
   const setSecretWord = (secretWord) => {
     dispatch({ type: 'setSecretWord', payload: secretWord });
+  };
+
+  const setLanguage = (language) => {
+    dispatch({ type: 'setLanguage', payload: language });
   };
 
   useEffect(() => {
@@ -50,9 +56,12 @@ function App() {
   return (
     <div data-test='component-app' className='container'>
       <h1>Jotto</h1>
-      <Congrats success={success} />
-      <Input success={success} secretWord={state.secretWord} />
-      <GuessedWords guessedWords={guessedWords} />
+      <languageContext.Provider value={state.language}>
+        <LanguagePicker setLanguage={setLanguage} />
+        <Congrats success={success} />
+        <Input success={success} secretWord={state.secretWord} />
+        <GuessedWords guessedWords={guessedWords} />
+      </languageContext.Provider>
     </div>
   );
 }

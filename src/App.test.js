@@ -38,16 +38,10 @@ describe.each([
     const spinnerComponent = findByTestAttr(wrapper, 'spinner');
     expect(spinnerComponent.exists()).toBe(loadingShows);
   });
-  test(`redners app: ${appShows}`, () => {
+  test(`renders app: ${appShows}`, () => {
     const appComponent = findByTestAttr(wrapper, 'component-app');
     expect(appComponent.exists()).toBe(appShows);
   });
-});
-
-test('renders without error', () => {
-  const wrapper = setup();
-  const appComponent = findByTestAttr(wrapper, 'component-app');
-  expect(appComponent).toHaveLength(1);
 });
 
 describe('get secret word', () => {
